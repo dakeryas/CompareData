@@ -1,0 +1,3 @@
+#CompareData
+
+CompareData is a simple command line program aimed at comparing ROOT histograms saved in various ROOT files (and possibly within canvases). To run and be compiled with 'make', the boost library is needed (filesystem and program_options are used). The command line options are described when calling "CompareData --help".
