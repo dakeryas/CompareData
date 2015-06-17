@@ -2,10 +2,10 @@
 
 using namespace std;
 
-ostream& operator<<(ostream& output, const Rebinner& edgener){
+ostream& operator<<(ostream& output, const Rebinner& rebinner){
 
   output<<"Bin edges: \n";
-  for(const double& binEdge : edgener.getRebin()) output<<binEdge<<"\n";
+  for(const double& binEdge : rebinner.getRebin()) output<<binEdge<<"\n";
   return output;
   
 }
@@ -91,6 +91,12 @@ bool Rebinner::admissibleRebinFor(Data& data) const{
 
   return true;
   
+}
+
+bool Rebinner::hasValidRebin() const{
+  
+  return !edge.empty();
+
 }
 
 const vector<double>& Rebinner::getRebin() const{

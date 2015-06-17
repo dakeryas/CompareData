@@ -21,6 +21,7 @@ public:
   void squeezeBinning(unsigned factor);
   void rebin(Data& data) const;//actually rebin 'data'
   bool admissibleRebinFor(Data& data) const;//check whether 'edge' is admissible or not for 'data'
+  bool hasValidRebin() const;
   const std::vector<double>& getRebin() const;
   unsigned getNumberOfBins() const;
 

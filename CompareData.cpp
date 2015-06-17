@@ -18,8 +18,19 @@ void CompareData(const boost::filesystem::path& directory, const std::string& ou
   if(verbose > 2) std::cout<<data<<std::endl;
 
   Rebinner rebinner(data);
-  if(verbose > 1) std::cout<<rebinner<<std::endl;
-  rebinner.rebin(data);
+  if(rebinner.hasValidRebin()){
+    
+    if(verbose > 1) std::cout<<rebinner<<std::endl;
+    rebinner.rebin(data);
+    
+  }
+  else{
+    
+    std::cout<<"Error: no common binning found!"<<std::endl;
+    return;
+    
+  }
+  
   if(normaliseData) normalise(data);
 
   if(rename) data.renameHistograms(pathGrabber.getFileNames());
