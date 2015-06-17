@@ -15,9 +15,10 @@ void CompareData(const boost::filesystem::path& directory, const std::string& ou
   Storer storer(pathGrabber.getFilePaths());
   storer.fill(data);
   if(verbose > 0) std::cout<<storer<<std::endl;
-  if(verbose > 1) std::cout<<data<<std::endl;
+  if(verbose > 2) std::cout<<data<<std::endl;
 
   Rebinner rebinner(data);
+  if(verbose > 1) std::cout<<rebinner<<std::endl;
   rebinner.rebin(data);
   if(normaliseData) normalise(data);
 
@@ -43,7 +44,7 @@ int main (int argc, char* argv[]){
   ("output,o", bpo::value<std::string>(&output)->required(), "Output file where to save the canvas")
   ("normalise,n", "Normalise data")
   ("rename,r", "Rename objects according to filenames")
-  ("verbose,v", bpo::value<unsigned>(&verbose)->default_value(1),"Display filenames at 1, add objects at 2");
+  ("verbose,v", bpo::value<unsigned>(&verbose)->default_value(1),"Display filenames at 1, add rebin at 2 and objects at 3");
 
   bpo::positional_options_description positionalOptions;//to use arguments without "--"
   positionalOptions.add("target", 1);

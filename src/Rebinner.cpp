@@ -4,7 +4,7 @@ using namespace std;
 
 ostream& operator<<(ostream& output, const Rebinner& edgener){
 
-  output<<"Bin edges = \n";
+  output<<"Bin edges: \n";
   for(const double& binEdge : edgener.getRebin()) output<<binEdge<<"\n";
   return output;
   
