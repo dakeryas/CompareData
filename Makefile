@@ -7,7 +7,7 @@ EXECUTABLE = $(patsubst %.cpp,%, $(MAIN))
 MAKEFLAGS = -j$(shell nproc)
 FLAGS := $(shell root-config --cflags)
 FLAGS += -I. -I$(IDIR)
-FLAGS += -I$(BOOST_PATH)
+FLAGS += -I$(BOOST_PATH)/include
 OPTFLAG = $(FLAGS) -Wall -Wextra -O3
 
 LIBS :=  $(shell root-config --libs)

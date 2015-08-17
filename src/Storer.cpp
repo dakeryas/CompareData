@@ -1,27 +1,24 @@
 #include "Storer.hpp"
 
-using namespace std;
-using namespace boost::filesystem;
-
-ostream& operator<<(ostream& output, const Storer& data){
+std::ostream& operator<<(std::ostream& output, const Storer& data){
   
   output<<"Files to store from:\n";
-  for(const path& filep : data.getFilePaths()) output<<filep<<"\n";
+  for(const auto& filep : data.getFilePaths()) output<<filep<<"\n";
   return output;  
   
 }
 
-Storer::Storer(const path& filePath):filePaths({filePath}){
+Storer::Storer(const boost::filesystem::path& filePath):filePaths({filePath}){
 
 }
 
-Storer::Storer(const vector<path>& filePaths):filePaths(filePaths){
+Storer::Storer(const std::vector<boost::filesystem::path>& filePaths):filePaths(filePaths){
 
 }
 
 bool Storer::itemMatches(TObject* obj, const char* className){
 
-  return string(obj->ClassName()).find(string(className)) != string::npos;
+  return std::string(obj->ClassName()).find(std::string(className)) != std::string::npos;
   
 }
 
@@ -48,7 +45,7 @@ void Storer::pushFromCan(Data& data, TObject* readObject) const{//reads a key to
   
 }
 
-void Storer::pushPath(const path& filePath){
+void Storer::pushPath(const boost::filesystem::path& filePath){
   
   filePaths.push_back(filePath);
 
@@ -84,13 +81,13 @@ void Storer::fill(Data& data) const{
   
 }
 
-void Storer::setFilePaths(const vector<path>& filePaths){
+void Storer::setFilePaths(const std::vector<boost::filesystem::path>& filePaths){
   
   this->filePaths = filePaths;
 
 }
 
-const vector<path>& Storer::getFilePaths() const{
+const std::vector<boost::filesystem::path>& Storer::getFilePaths() const{
 
   return filePaths;
   
