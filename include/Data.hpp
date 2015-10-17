@@ -18,6 +18,7 @@ public:
   const std::vector<TH1D> getTH1DCopies() const;
   unsigned getNumberOfBins() const;//returns the minimum of the Hist::getNumberOfBins
   unsigned getSize() const;//returns the largest size of the std::vectors in Data
+  bool isEmpty() const;//checks the size of 'histograms'
   void renameHistograms(const std::vector<std::string>& names);
   void clear();//resizes all vectors to zero
 

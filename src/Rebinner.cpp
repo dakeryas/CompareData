@@ -49,8 +49,12 @@ vector<unsigned> Rebinner::getCommonIndices(const vector<double>& v1, const vect
 
 void Rebinner::buildFrom(const Data& data){
   
-  edge = data.getHistograms().front().getEdge();//overwrite the old edge
-  for(const Hist& h : data.getHistograms()) edge = getCommonElements(edge, h.getEdge());
+  if(!data.isEmpty()){
+    
+    edge = data.getHistograms().front().getEdge();//overwrite the old edge
+    for(const Hist& h : data.getHistograms()) edge = getCommonElements(edge, h.getEdge());
+    
+  }
   
 }
 

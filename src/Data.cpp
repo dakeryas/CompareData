@@ -87,16 +87,22 @@ const std::vector<TH1D> Data::getTH1DCopies() const{
   
 }
 
-unsigned int Data::getNumberOfBins() const{
+unsigned Data::getNumberOfBins() const{
   
   return (*std::min_element(histograms.begin(), histograms.end(), [](const Hist& h1, const Hist& h2){return h1.getNumberOfBins() < h2.getNumberOfBins();})).getNumberOfBins();
 
 }
 
-unsigned int Data::getSize() const{
+unsigned Data::getSize() const{
 
   return histograms.size();
   
+}
+
+bool Data::isEmpty() const{
+  
+  return histograms.empty();
+
 }
 
 void Data::renameHistograms(const std::vector<std::string>& names){
