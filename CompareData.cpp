@@ -12,6 +12,7 @@ void CompareData(const boost::filesystem::path& directory, const std::string& ou
   
   PathGrabber pathGrabber;
   pathGrabber.pushPathsFrom(directory);
+  pathGrabber.sortPaths();
   Storer storer(pathGrabber.getFilePaths());
   storer.fill(data);
   if(verbose > 0) std::cout<<storer<<std::endl;

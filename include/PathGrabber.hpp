@@ -14,6 +14,7 @@ class PathGrabber{
 public:
   void pushPathsFrom(const boost::filesystem::path& searchPath);//pushes back into 'filePaths' the path pointed to by 'it' if that path references a ROOT file
   void pushPathsFrom(const boost::filesystem::path& searchPath, const std::string& fileSorter);//pushes back into 'filePaths' the path pointed to by 'it' if that path references a ROOT file
+  void sortPaths();//alphabetically sort the paths
   void clear();//resizes the filePaths to zero
   const std::vector<boost::filesystem::path>& getFilePaths() const;
   std::vector<std::string> getFileNames() const;

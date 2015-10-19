@@ -2,7 +2,7 @@
 #define COSMETICS_H
 
 #include <string>
-#include <boost/algorithm/string.hpp>
+#include "boost/algorithm/string.hpp"
 #include "TFile.h"
 #include "TCanvas.h"
 #include "TStyle.h"

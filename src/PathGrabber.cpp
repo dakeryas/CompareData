@@ -40,6 +40,12 @@ void PathGrabber::pushPathsFrom(const boost::filesystem::path& searchPath, const
   
 }
 
+void PathGrabber::sortPaths(){
+
+  std::sort(filePaths.begin(), filePaths.end());
+
+}
+
 void PathGrabber::clear(){
   
   filePaths.clear();
