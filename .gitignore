@@ -1,0 +1,8 @@
+.gitignore
+CompareData
+*.[oda]
+*.kdev*
+*.kdev4
+*~
+
+
