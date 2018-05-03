@@ -1,44 +1,58 @@
-ODIR = ./objects
-SDIR = ./src
-IDIR = ./include
-MAIN = CompareData.cpp
-EXECUTABLE = $(patsubst %.cpp,%, $(MAIN))
+ODIR := ./objects
+SDIR := ./src
+IDIR := ./include
+MAIN := CompareData.cpp
+EXECUTABLE := $(patsubst %.cpp,%, $(MAIN))
+DESTDIR := /usr/local
 
-MAKEFLAGS = -j$(shell nproc)
-FLAGS := $(shell root-config --cflags)
-FLAGS += -I. -I$(IDIR)
-FLAGS += -I$(BOOST_PATH)/include
-OPTFLAG = $(FLAGS) -Wall -Wextra -O3
+MAKEFLAGS := -j$(shell nproc)
 
-LIBS :=  $(shell root-config --libs)
-LIBS += -L$(BOOST_PATH)/lib -lboost_filesystem -lboost_system -lboost_program_options
-LIBS += -lrt
+CPPFLAGS += -I$(IDIR)
+CPPFLAGS += -I$(BOOST_PATH)/include
+CPPFLAGS += -I$(shell root-config --incdir)
 
-OBJS = $(patsubst %.cpp,%.o,$(addprefix $(ODIR)/,$(wildcard *.cpp)))
+OPTFLAGS :=  -O3
+CXXFLAGS += $(shell root-config --auxcflags)
+CXXFLAGS += -Wall -Wextra -MMD -MP $(OPTFLAGS)
+
+LDFLAGS += -L$(BOOST_PATH)/lib -lboost_filesystem -lboost_system -lboost_program_options
+LDFLAGS +=  $(shell root-config --libs)
+
+OBJS := $(patsubst %.cpp,%.o,$(addprefix $(ODIR)/,$(wildcard *.cpp)))
 OBJS += $(patsubst $(SDIR)/%.cpp,$(ODIR)/%.o,$(wildcard $(SDIR)/*.cpp))
 
-.PHONY: clean
+DEPS := $(patsubst %.o,%.d, $(OBJS))
 
-all: $(EXECUTABLE)
+.PHONY: all debug install clean
 
-debug:OPTFLAG = $(FLAGS) -Wall -Wextra -O0 -g
-debug:$(EXECUTABLE)
+all: $(EXECUTABLE)  
+
+debug: OPTFLAGS := -O0 -g -DDEBUG
+debug: all
+
+install: $(EXECUTABLE)
+	mkdir -p $(DESTDIR)/bin
+	cp $< $(DESTDIR)/bin
 
 $(OBJS): | $(ODIR)
 $(ODIR):
 	mkdir -p $(ODIR)
 
 $(ODIR)/$(MAIN:.cpp=.o): $(MAIN)
-	$(CXX) $(OPTFLAG) -c -o $@ $<
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c -o $@ $<
 
 $(ODIR)/%.o:$(SDIR)/%.cpp $(IDIR)/%.hpp
-	$(CXX) $(OPTFLAG) -c -o $@ $<
-
-
-$(EXECUTABLE): $(OBJS)
-	$(CXX) -o $@  $^ $(LIBS)
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c -o $@ $<
+	
+$(EXECUTABLE):$(OBJS)
+	$(CXX) -o $@  $^ $(LDFLAGS)
 
 clean:
-	rm -f $(ODIR)/*.o $(SDIR)/*~ $(IDIR)/*~ $(EXECUTABLE) *.txt *.root *~
+	rm -f $(ODIR)/*.o $(DEPS) $(SDIR)/*~ $(IDIR)/*~ $(EXECUTABLE) *~
+	
+-include $(DEPS)
+
+
+
 
 

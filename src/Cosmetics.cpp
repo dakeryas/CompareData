@@ -1,4 +1,4 @@
-# include "include/Cosmetics.hpp"
+# include "Cosmetics.hpp"
 
 Cosmetics::Cosmetics(const std::vector<Hist>& h, const std::vector<int>& colours, const std::vector<double>& legend_pos, std::string ytitle):h(h), colours(colours), legend_pos(legend_pos){
 
